@@ -1,0 +1,104 @@
+project-root/
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Auth/                # Controller login/register (Breeze)
+│   │   │   ├── DashboardController.php
+│   │   │   ├── EmployeeController.php
+│   │   │   ├── ClusterController.php
+│   │   │   ├── UserController.php
+│   │   │   └── ProfileController.php
+│   │   ├── Middleware/
+│   │   │   ├── Authenticate.php
+│   │   │   ├── CheckRole.php         # Middleware filter role
+│   │   │   └── FilterCluster.php     # Middleware filter data cluster_admin
+│   │   └── Requests/
+│   │       ├── StoreEmployeeRequest.php
+│   │       ├── UpdateEmployeeRequest.php
+│   │       └── StoreClusterRequest.php
+│   ├── Models/
+│   │   ├── User.php
+│   │   ├── Employee.php
+│   │   └── Cluster.php
+│   └── Services/
+│       ├── EmployeeService.php       # Logic kompleks pegawai
+│       └── ExportService.php         # Export data
+│
+├── bootstrap/
+│
+├── config/
+│   ├── permission.php                 # Konfigurasi Spatie
+│   ├── excel.php                       # Konfigurasi export/import
+│   └── tabler.php                      # Opsional, konfigurasi tema
+│
+├── database/
+│   ├── factories/
+│   │   ├── EmployeeFactory.php
+│   ├── migrations/
+│   │   ├── 2025_xx_xx_create_clusters_table.php
+│   │   ├── 2025_xx_xx_create_employees_table.php
+│   │   ├── 2025_xx_xx_add_cluster_id_to_users_table.php
+│   │   └── 2025_xx_xx_create_permission_tables.php
+│   └── seeders/
+│       ├── DatabaseSeeder.php
+│       ├── RoleSeeder.php
+│       ├── ClusterSeeder.php
+│       └── EmployeeSeeder.php
+│
+├── public/
+│   ├── build/                          # Hasil build Vite
+│   ├── assets/                         # Static assets (logo, icons)
+│   └── index.php
+│
+├── resources/
+│   ├── css/                            # Styling global (Tailwind + Tabler custom)
+│   ├── js/
+│   │   ├── Pages/                      # Halaman Inertia
+│   │   │   ├── Dashboard.vue
+│   │   │   ├── Employees/
+│   │   │   │   ├── Index.vue
+│   │   │   │   ├── Create.vue
+│   │   │   │   ├── Edit.vue
+│   │   │   │   └── Show.vue
+│   │   │   ├── Clusters/
+│   │   │   │   ├── Index.vue
+│   │   │   │   └── CreateEdit.vue
+│   │   │   ├── Users/
+│   │   │   │   ├── Index.vue
+│   │   │   │   └── CreateEdit.vue
+│   │   │   └── Profile/
+│   │   │       └── Edit.vue
+│   │   ├── Components/                 # Komponen reusable
+│   │   │   ├── Layouts/
+│   │   │   │   ├── AppLayout.vue
+│   │   │   │   └── GuestLayout.vue
+│   │   │   ├── Forms/
+│   │   │   │   ├── InputText.vue
+│   │   │   │   ├── SelectField.vue
+│   │   │   │   └── DatePicker.vue
+│   │   │   └── UI/                      # Komponen Tabler custom
+│   │   │       ├── CardStat.vue
+│   │   │       ├── DataTable.vue
+│   │   │       └── Modal.vue
+│   │   ├── composables/                # Reusable JS logic
+│   │   │   ├── useAuth.js
+│   │   │   ├── useFormErrors.js
+│   │   │   └── usePermissions.js
+│   │   └── app.js                      # Entry point Vue + Inertia
+│   ├── views/                          # Blade (hanya root Inertia)
+│   │   └── app.blade.php
+│   └── tabler/                         # Asset & partial layout Tabler (jika dipakai langsung)
+│
+├── routes/
+│   ├── web.php                         # Route Inertia utama
+│   ├── api.php                         # Route API jika ada
+│   └── auth.php                        # Route login/register (Breeze)
+│
+├── storage/
+│
+├── tests/
+│
+├── vite.config.js
+├── package.json
+├── composer.json
+└── .env
