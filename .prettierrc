@@ -1,0 +1,9 @@
+{
+  "printWidth": 999,
+  "proseWrap": "never",
+  "singleQuote": true,
+  "semi": false,
+  "trailingComma": "es5",
+  "htmlWhitespaceSensitivity": "ignore",
+  "vueIndentScriptAndStyle": true
+}
