@@ -7,21 +7,20 @@ use App\Models\Cluster;
 use App\Models\Division;
 use App\Models\Employee;
 use App\Models\Position;
+use App\Models\Insurance;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Employee::with(['division', 'cluster', 'position']);
+        $query = Employee::with(['division', 'cluster', 'position', 'insurance']);
 
         if ($request->search) {
             $query->where(function ($q) use ($request) {
                 $q->where('full_name', 'like', '%' . $request->search . '%')
                     ->orWhere('ktp_number', 'like', '%' . $request->search . '%')
-                    ->orWhere('employee_code', 'like', '%' . $request->search . '%')
-                    ->orWhere('bpjs_health_number', 'like', '%' . $request->search . '%')
-                    ->orWhere('bpjs_tk_number', 'like', '%' . $request->search . '%');
+                    ->orWhere('employee_code', 'like', '%' . $request->search . '%');
             });
         }
 
@@ -34,10 +33,11 @@ class EmployeeController extends Controller
         }
 
         return inertia('Employees/Index', [
-            'employees' => $query->paginate(10)->withQueryString(),
+            'employees' => $query->paginate(15)->withQueryString(),
             'divisions' => Division::all(),
             'clusters'  => Cluster::all(),
             'positions'  => Cluster::all(),
+            'insurances'  => Insurance::all(),
             'filters'   => $request->only(['search', 'division_id', 'cluster_id']),
         ]);
     }

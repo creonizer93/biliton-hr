@@ -12,6 +12,7 @@
         divisions: Array,
         clusters: Array,
         positions: Array,
+        insurances: Array,
         filters: Object,
     })
     const search = ref(props.filters.search || '')
@@ -58,8 +59,8 @@
                             <!-- Filter Section -->
                             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
                                 <!-- Search -->
-                                <div class="relative w-full sm:w-[415px]">
-                                    <input v-model="search" type="text" placeholder="🔍 Search Nama, NIK, NIK Karyawan, No. BPJS, No. BPJS-TK" class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+                                <div class="relative w-full sm:w-[278px]">
+                                    <input v-model="search" type="text" placeholder="🔍 Search Nama, NIK or NIK Karyawan " class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
                                 </div>
 
                                 <!-- Dropdown Filters -->
@@ -85,24 +86,24 @@
                                     <th class="px-4 py-2">Nama</th>
                                     <th class="px-4 py-2">NIK KTP</th>
                                     <th class="px-4 py-2">NIK Karyawan</th>
-                                    <th class="px-4 py-2">Tempat Lahir</th>
+                                    <!-- <th class="px-4 py-2">Tempat Lahir</th>
                                     <th class="px-4 py-2">Tanggal Lahir</th>
                                     <th class="px-4 py-2">Alamat KTP</th>
                                     <th class="px-4 py-2">Alamat Domisili</th>
                                     <th class="px-4 py-2">No. HP</th>
-                                    <th class="px-4 py-2">Email</th>
+                                    <th class="px-4 py-2">Email</th> -->
                                     <th class="px-4 py-2">Divisi</th>
                                     <th class="px-4 py-2">Cluster</th>
                                     <th class="px-4 py-2">Posisi</th>
                                     <th class="px-4 py-2">Status</th>
-                                    <th class="px-4 py-2">Tanggal Masuk</th>
+                                    <!-- <th class="px-4 py-2">Tanggal Masuk</th>
                                     <th class="px-4 py-2">Tanggal Keluar</th>
                                     <th class="px-4 py-2">No. Rekening</th>
                                     <th class="px-4 py-2">Bank</th>
                                     <th class="px-4 py-2">No. BPJS Kesehatan</th>
                                     <th class="px-4 py-2">Tanggal Terdaftar</th>
                                     <th class="px-4 py-2">No. BPJS TK</th>
-                                    <th class="px-4 py-2">Tanggal Terdaftar</th>
+                                    <th class="px-4 py-2">Tanggal Terdaftar</th> -->
                                     <th class="px-4 py-2">Action</th>
                                 </tr>
                             </thead>
@@ -120,7 +121,7 @@
                                     <td class="border px-4 py-2">
                                         {{ employee.employee_code }}
                                     </td>
-                                    <td class="border px-4 py-2">
+                                    <!-- <td class="border px-4 py-2">
                                         {{ employee.birth_place }}
                                     </td>
                                     <td class="border px-4 py-2">
@@ -137,7 +138,7 @@
                                     </td>
                                     <td class="border px-4 py-2">
                                         {{ employee.email }}
-                                    </td>
+                                    </td> -->
                                     <td class="border px-4 py-2">
                                         {{ employee.division?.name }}
                                     </td>
@@ -150,7 +151,7 @@
                                     <td class="border px-4 py-2">
                                         {{ employee.status_employee }}
                                     </td>
-                                    <td class="border px-4 py-2">
+                                    <!-- <td class="border px-4 py-2">
                                         {{ dayjs(employee.join_date).format('DD/MM/YYYY') }}
                                     </td>
                                     <td class="border px-4 py-2">
@@ -163,17 +164,17 @@
                                         {{ employee.bank_name }}
                                     </td>
                                     <td class="border px-4 py-2">
-                                        {{ employee.bpjs_health_number }}
-                                    </td>
+                                        {{ employee.insurance?.bpjs_health_number }}
+                                    </td> 
                                     <td class="border px-4 py-2">
-                                        {{ dayjs(employee.bpjs_health_join_date).format('DD/MM/YYYY') }}
-                                    </td>
+                                        {{ dayjs(employee.insurance?.bpjs_health_join_date).format('DD/MM/YYYY') }}
+                                    </td> 
                                     <td class="border px-4 py-2">
-                                        {{ employee.bpjs_tk_number }}
-                                    </td>
+                                        {{ employee.insurance?.bpjs_tk_number }}
+                                    </td> 
                                     <td class="border px-4 py-2">
-                                        {{ dayjs(employee.bpjs_tk_join_date).format('DD/MM/YYYY') }}
-                                    </td>
+                                        {{ dayjs(employee.insurance?.bpjs_tk_join_date).format('DD/MM/YYYY') }}
+                                    </td> -->
                                     <td class="border px-4 py-2">
                                         <a :href="`/employees/${employee.id}/edit`" class="text-blue-500 hover:underline">Edit</a>
                                         <form :action="`/employees/${employee.id}`" method="POST" class="inline">

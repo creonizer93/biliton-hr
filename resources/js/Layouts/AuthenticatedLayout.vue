@@ -50,6 +50,7 @@
                                             <DropdownLink :href="route('divisions.index')">Divisi</DropdownLink>
                                             <DropdownLink :href="route('clusters.index')">Cluster</DropdownLink>
                                             <DropdownLink :href="route('positions.index')">Position</DropdownLink>
+                                            <DropdownLink :href="route('insurances.index')">Insurances</DropdownLink>
                                         </template>
                                     </Dropdown>
                                 </div>

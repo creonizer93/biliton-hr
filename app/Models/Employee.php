@@ -52,4 +52,8 @@ class Employee extends Model
     {
         return $this->belongsTo(Position::class);
     }
+    public function insurance()
+    {
+        return $this->hasOne(Insurance::class);
+    }
 }

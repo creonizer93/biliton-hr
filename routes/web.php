@@ -3,11 +3,12 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\ClusterController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DivisionController;
-use App\Http\Controllers\ClusterController;
-use App\Http\Controllers\PositionController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PositionController;
+use App\Http\Controllers\InsuranceController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -32,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('positions', PositionController::class)->except(['show']);
     Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
     Route::resource('employees', EmployeeController::class)->except(['index']);
+    Route::resource('/insurances', InsuranceController::class)->except(['show']);
 });
 
 require __DIR__ . '/auth.php';
