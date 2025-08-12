@@ -11,24 +11,33 @@
         employees: Object,
         divisions: Array,
         clusters: Array,
+        positions: Array,
         filters: Object,
     })
+    const search = ref(props.filters.search || '')
     const division_id = ref(props.filters.division_id || '')
     const cluster_id = ref(props.filters.cluster_id || '')
 
-    watch([division_id, cluster_id], ([newDivision, newCluster]) => {
-        router.get(
-            '/employees',
-            {
-                division_id: newDivision,
-                cluster_id: newCluster,
-            },
-            {
-                preserveState: true,
-                preserveScroll: true,
-            }
-        )
+    let timeout = null
+    watch([search, division_id, cluster_id], () => {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+            router.get(
+                route('employees.index'),
+                {
+                    search: search.value,
+                    division_id: division_id.value,
+                    cluster_id: cluster_id.value,
+                },
+                {
+                    preserveState: true,
+                    replace: true,
+                }
+            )
+        }, 300)
     })
+    // This will trigger the search and filter functionality when the user types in the search box or changes the dropdown selections.
+    // The timeout is used to prevent too many requests being sent while the user is still typing
 </script>
 
 <template>
@@ -46,21 +55,25 @@
                                 <a href="/employees/create" class="text-white">Add Employees</a>
                             </PrimaryButton>
 
-                            <!-- Filter -->
-                            <div class="flex gap-4">
-                                <select v-model="division_id" class="rounded-lg border border-gray-300 bg-white px-3 pr-8 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                    <option value="">All Divisions</option>
-                                    <option v-for="d in divisions" :key="d.id" :value="d.id">
-                                        {{ d.name }}
-                                    </option>
-                                </select>
+                            <!-- Filter Section -->
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+                                <!-- Search -->
+                                <div class="relative w-full sm:w-[415px]">
+                                    <input v-model="search" type="text" placeholder="🔍 Search Nama, NIK, NIK Karyawan, No. BPJS, No. BPJS-TK" class="w-full rounded-lg border border-gray-300 px-4 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
+                                </div>
 
-                                <select v-model="cluster_id" class="rounded-lg border border-gray-300 bg-white px-3 pr-8 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                    <option value="">All Clusters</option>
-                                    <option v-for="c in clusters" :key="c.id" :value="c.id">
-                                        {{ c.name }}
-                                    </option>
-                                </select>
+                                <!-- Dropdown Filters -->
+                                <div class="flex gap-2">
+                                    <select v-model="division_id" class="rounded-lg border border-gray-300 bg-white px-3 pr-8 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                        <option value="">All Divisions</option>
+                                        <option v-for="d in divisions" :key="d.id" :value="d.id">{{ d.name }}</option>
+                                    </select>
+
+                                    <select v-model="cluster_id" class="rounded-lg border border-gray-300 bg-white px-3 pr-8 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                        <option value="">All Clusters</option>
+                                        <option v-for="c in clusters" :key="c.id" :value="c.id">{{ c.name }}</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
