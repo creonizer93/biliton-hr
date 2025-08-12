@@ -4,9 +4,30 @@
     import PrimaryButton from '@/Components/PrimaryButton.vue'
     import Pagination from '@/Components/Pagination.vue'
     import dayjs from 'dayjs'
+    import { ref, watch } from 'vue'
+    import { router } from '@inertiajs/vue3'
 
-    defineProps({
+    const props = defineProps({
         employees: Object,
+        divisions: Array,
+        clusters: Array,
+        filters: Object,
+    })
+    const division_id = ref(props.filters.division_id || '')
+    const cluster_id = ref(props.filters.cluster_id || '')
+
+    watch([division_id, cluster_id], ([newDivision, newCluster]) => {
+        router.get(
+            '/employees',
+            {
+                division_id: newDivision,
+                cluster_id: newCluster,
+            },
+            {
+                preserveState: true,
+                preserveScroll: true,
+            }
+        )
     })
 </script>
 
@@ -14,25 +35,33 @@
     <Head title="Employees" />
 
     <AuthenticatedLayout>
-        <!-- <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800">Employees</h2>
-        </template> -->
-
         <div class="py-5">
             <div class="w-full">
                 <div class="overflow-x-auto bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <!-- Tombol Create -->
-                        <PrimaryButton>
-                            <a href="/employees/create" class="text-white">Add Employees</a>
-                        </PrimaryButton>
+                        <div class="flex justify-between items-center mb-4">
+                            <!-- Tombol Create -->
+                            <PrimaryButton>
+                                <a href="/employees/create" class="text-white">Add Employees</a>
+                            </PrimaryButton>
 
-                        <!-- Flash message -->
-                        <div v-if="$page.props.flash.success" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-4" role="alert">
-                            {{ $page.props.flash.success }}
-                        </div>
-                        <div v-if="$page.props.flash.error" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4" role="alert">
-                            {{ $page.props.flash.error }}
+                            <!-- Filter -->
+                            <div class="flex gap-4">
+                                <select v-model="division_id" class="rounded-lg border border-gray-300 bg-white px-3 pr-8 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    <option value="">All Divisions</option>
+                                    <option v-for="d in divisions" :key="d.id" :value="d.id">
+                                        {{ d.name }}
+                                    </option>
+                                </select>
+
+                                <select v-model="cluster_id" class="rounded-lg border border-gray-300 bg-white px-3 pr-8 py-2 text-sm shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    <option value="">All Clusters</option>
+                                    <option v-for="c in clusters" :key="c.id" :value="c.id">
+                                        {{ c.name }}
+                                    </option>
+                                </select>
+                            </div>
                         </div>
 
                         <!-- Table -->
