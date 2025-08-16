@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employee extends Model
 {
@@ -56,4 +57,6 @@ class Employee extends Model
     {
         return $this->hasOne(Insurance::class);
     }
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 }

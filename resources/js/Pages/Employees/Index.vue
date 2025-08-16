@@ -86,24 +86,10 @@
                                     <th class="px-4 py-2">Nama</th>
                                     <th class="px-4 py-2">NIK KTP</th>
                                     <th class="px-4 py-2">NIK Karyawan</th>
-                                    <!-- <th class="px-4 py-2">Tempat Lahir</th>
-                                    <th class="px-4 py-2">Tanggal Lahir</th>
-                                    <th class="px-4 py-2">Alamat KTP</th>
-                                    <th class="px-4 py-2">Alamat Domisili</th>
-                                    <th class="px-4 py-2">No. HP</th>
-                                    <th class="px-4 py-2">Email</th> -->
                                     <th class="px-4 py-2">Divisi</th>
                                     <th class="px-4 py-2">Cluster</th>
                                     <th class="px-4 py-2">Posisi</th>
                                     <th class="px-4 py-2">Status</th>
-                                    <!-- <th class="px-4 py-2">Tanggal Masuk</th>
-                                    <th class="px-4 py-2">Tanggal Keluar</th>
-                                    <th class="px-4 py-2">No. Rekening</th>
-                                    <th class="px-4 py-2">Bank</th>
-                                    <th class="px-4 py-2">No. BPJS Kesehatan</th>
-                                    <th class="px-4 py-2">Tanggal Terdaftar</th>
-                                    <th class="px-4 py-2">No. BPJS TK</th>
-                                    <th class="px-4 py-2">Tanggal Terdaftar</th> -->
                                     <th class="px-4 py-2">Action</th>
                                 </tr>
                             </thead>
@@ -121,24 +107,7 @@
                                     <td class="border px-4 py-2">
                                         {{ employee.employee_code }}
                                     </td>
-                                    <!-- <td class="border px-4 py-2">
-                                        {{ employee.birth_place }}
-                                    </td>
-                                    <td class="border px-4 py-2">
-                                        {{ dayjs(employee.birth_date).format('DD/MM/YYYY') }}
-                                    </td>
-                                    <td class="border px-4 py-2">
-                                        {{ employee.address_ktp }}
-                                    </td>
-                                    <td class="border px-4 py-2">
-                                        {{ employee.address_domicile }}
-                                    </td>
-                                    <td class="border px-4 py-2">
-                                        {{ employee.phone_number }}
-                                    </td>
-                                    <td class="border px-4 py-2">
-                                        {{ employee.email }}
-                                    </td> -->
+
                                     <td class="border px-4 py-2">
                                         {{ employee.division?.name }}
                                     </td>
@@ -151,37 +120,9 @@
                                     <td class="border px-4 py-2">
                                         {{ employee.status_employee }}
                                     </td>
-                                    <!-- <td class="border px-4 py-2">
-                                        {{ dayjs(employee.join_date).format('DD/MM/YYYY') }}
-                                    </td>
-                                    <td class="border px-4 py-2">
-                                        {{ employee.resign_date ? dayjs(employee.resign_date).format('DD/MM/YYYY') : '-' }}
-                                    </td>
-                                    <td class="border px-4 py-2">
-                                        {{ employee.bank_account_number }}
-                                    </td>
-                                    <td class="border px-4 py-2">
-                                        {{ employee.bank_name }}
-                                    </td>
-                                    <td class="border px-4 py-2">
-                                        {{ employee.insurance?.bpjs_health_number }}
-                                    </td> 
-                                    <td class="border px-4 py-2">
-                                        {{ dayjs(employee.insurance?.bpjs_health_join_date).format('DD/MM/YYYY') }}
-                                    </td> 
-                                    <td class="border px-4 py-2">
-                                        {{ employee.insurance?.bpjs_tk_number }}
-                                    </td> 
-                                    <td class="border px-4 py-2">
-                                        {{ dayjs(employee.insurance?.bpjs_tk_join_date).format('DD/MM/YYYY') }}
-                                    </td> -->
-                                    <td class="border px-4 py-2">
-                                        <a :href="`/employees/${employee.id}/edit`" class="text-blue-500 hover:underline">Edit</a>
-                                        <form :action="`/employees/${employee.id}`" method="POST" class="inline">
-                                            <input type="hidden" name="_method" value="DELETE" />
-                                            <input type="hidden" name="_token" :value="$page.props.auth.csrf_token" />
-                                            <button type="submit" class="text-red-500 hover:underline ml-2">Delete</button>
-                                        </form>
+
+                                    <td class="border px-4 py-2 text-center">
+                                        <PrimaryButton @click.prevent="$inertia.get(`/employees/${employee.id}`)" class="bg-green-500 hover:bg-green-700 ml-2">Show Details</PrimaryButton>
                                     </td>
                                 </tr>
                             </tbody>

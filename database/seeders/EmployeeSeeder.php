@@ -8,6 +8,7 @@ use Faker\Factory as Faker;
 use App\Models\Division;
 use App\Models\Cluster;
 use App\Models\Position;
+use App\Models\Insurance;
 
 class EmployeeSeeder extends Seeder
 {
@@ -19,6 +20,7 @@ class EmployeeSeeder extends Seeder
         $divisionIds = Division::pluck('id')->toArray();
         $clusterIds = Cluster::pluck('id')->toArray();
         $positionIds = Position::pluck('id')->toArray();
+        $insurancIds = Insurance::pluck('id')->toArray();
 
         // Kota di Kalimantan
         $kalimantanCities = [
@@ -36,7 +38,7 @@ class EmployeeSeeder extends Seeder
         ];
 
         foreach (range(1, 50) as $i) {
-            $status = $faker->randomElement(['active', 'resigned', 'probation', 'contract']);
+            $status = $faker->randomElement(['active', 'inactive', 'freelance', 'resigned']);
             $joinDate = $faker->dateTimeBetween('-5 years', 'now')->format('Y-m-d');
             $resignDate = ($status === 'resigned')
                 ? $faker->dateTimeBetween($joinDate, 'now')->format('Y-m-d')
@@ -63,10 +65,7 @@ class EmployeeSeeder extends Seeder
 
                 'bank_account_number'   => $faker->numerify('##########'),
                 'bank_name'             => $faker->randomElement(['BCA', 'BRI', 'Mandiri', 'BNI', 'BSI', 'BTN']),
-                'bpjs_health_number'    => $faker->numerify('##########'),
-                'bpjs_health_join_date' => $faker->dateTimeBetween($joinDate, 'now')->format('Y-m-d'),
-                'bpjs_tk_number'        => $faker->numerify('##########'),
-                'bpjs_tk_join_date'     => $faker->dateTimeBetween($joinDate, 'now')->format('Y-m-d'),
+                // 'insurance_id'    => $faker->randomElement($insurancIds),
 
                 'created_at'            => now(),
                 'updated_at'            => now(),
